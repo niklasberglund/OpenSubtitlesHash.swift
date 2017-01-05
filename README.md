@@ -1,5 +1,5 @@
 # OpenSubtitlesHash.swift
-Swift 3 class for generating file hash compatible with opensubtitles.org's API
+Swift 3 class for generating file hash compatible with opensubtitles.org's API. More information about the OpenSubtitles API at [http://trac.opensubtitles.org/projects/opensubtitles](http://trac.opensubtitles.org/projects/opensubtitles).
 
 ## Usage example
 ```swift
