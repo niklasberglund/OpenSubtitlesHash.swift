@@ -38,9 +38,25 @@ class OpenSubtitlesHash: NSObject {
         
         var hash: UInt64 = fileSize
         
+        func sizeForLocalFilePath(filePath:String) -> UInt64 {
+            do {
+                    let fileAttributes = try NSFileManager.defaultManager().attributesOfItemAtPath(filePath)
+                    if let fileSize = fileAttributes[NSFileSize]  {
+                        return (fileSize as! NSNumber).unsignedLongLongValue
+                    } else {
+                        print("Failed to get a size attribute from path: \(filePath)")
+                    }
+                } catch {
+                    print("Failed to get file attributes for local path: \(filePath) with error: \(error)")
+                }
+                return 0
+        }
+
+        
         var data_bytes = UnsafeBufferPointer<UInt64>(
             start: UnsafePointer(fileDataBegin.bytes.assumingMemoryBound(to: UInt64.self)),
-            count: fileDataBegin.length/MemoryLayout<UInt64>.size
+            b32Count: fileDataBegin.length/MemoryLayout<UInt32>.size,
+            b64Count: fileDataBegin.length/MemoryLayout<UInt64>.size,
         )
         
         hash = data_bytes.reduce(hash,&+)
